@@ -17,7 +17,7 @@ export default function Home({ jobs }: { jobs: JobPost[] }) {
       <Box p={{ base: '12', lg: '24' }}>
         <Stack mb='8' maxW='sm'>
           <Heading>Find Your Dream Job</Heading>
-          <Input placeholder='Search for a job' />
+          {/* <Input placeholder='Search for a job' /> */}
         </Stack>
         <JobList data={jobs} />
       </Box>
