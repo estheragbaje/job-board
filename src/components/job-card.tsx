@@ -19,22 +19,14 @@ import {
   MdLocationPin,
   MdOutlineAttachMoney,
 } from 'react-icons/md';
+import { JobPost } from '@/types';
 
 type JobCardProps = {
-  id: number;
-  title: string;
-
-  company: string;
-  location: string;
-  datePosted: string;
-  logo: string;
-  tags: string[];
-  remote: boolean;
-  salaryRange: string;
-  fullTime: boolean;
+  data: JobPost;
 };
 
 export function JobCard(props: JobCardProps) {
+  const { data, ...rest } = props;
   const {
     id,
     title,
@@ -45,9 +37,7 @@ export function JobCard(props: JobCardProps) {
     tags,
     remote,
     salaryRange,
-    fullTime,
-    ...rest
-  } = props;
+  } = data;
 
   return (
     <Box bg='gray.100' p='4' {...rest}>
@@ -67,7 +57,7 @@ export function JobCard(props: JobCardProps) {
               </HStack>
               <HStack spacing={1}>
                 <Icon as={MdBusiness} boxSize={4} />
-                {remote ? <Text>Remote</Text> : <Text>Onsite</Text>}
+                <Text>{remote === 'true' ? 'Remote' : 'Onsite'}</Text>
               </HStack>
               <HStack spacing={1}>
                 <Icon as={MdOutlineAttachMoney} boxSize={4} />

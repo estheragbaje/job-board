@@ -1,6 +1,6 @@
 import { JobList } from '@/components/job-list';
 import { JobPost, MyCollections } from '@/types';
-import { Box, Heading, Input, Stack } from '@chakra-ui/react';
+import { Box, Heading, Stack } from '@chakra-ui/react';
 import { Directus } from '@directus/sdk';
 import Head from 'next/head';
 
@@ -17,7 +17,6 @@ export default function Home({ jobs }: { jobs: JobPost[] }) {
       <Box p={{ base: '12', lg: '24' }}>
         <Stack mb='8' maxW='sm'>
           <Heading>Find Your Dream Job</Heading>
-          {/* <Input placeholder='Search for a job' /> */}
         </Stack>
         <JobList data={jobs} />
       </Box>
@@ -27,10 +26,8 @@ export default function Home({ jobs }: { jobs: JobPost[] }) {
 
 export const getStaticProps = async () => {
   const directus = new Directus<MyCollections>(
-    'https://esther-dev.directus.app/'
+    process.env.DIRECTUS_URL || 'http://localhost:3000'
   );
-
-  // await directus.auth.static('<api-token>');
 
   const jobs = await directus.items('jobs').readByQuery({
     limit: -1,
@@ -39,7 +36,7 @@ export const getStaticProps = async () => {
 
   // format the image field to have the full url
   jobs.data?.forEach((job) => {
-    job.logo = `https://esther-dev.directus.app/assets/${job.logo}`;
+    job.logo = `${process.env.DIRECTUS_URL}assets/${job.logo}`;
   });
 
   return {

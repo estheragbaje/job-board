@@ -45,14 +45,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const jobId = context.params?.jobId as string;
 
   const directus = new Directus<MyCollections>(
-    'https://esther-dev.directus.app/'
+    process.env.DIRECTUS_URL || 'http://localhost:3000'
   );
 
   const job = await directus.items('jobs').readOne(jobId);
 
   // reformat the image field to have the full url
   if (job) {
-    job.logo = `https://esther-dev.directus.app/assets/${job.logo}`;
+    job.logo = `${process.env.DIRECTUS_URL}assets/${job.logo}`;
   }
 
   return {

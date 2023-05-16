@@ -7,7 +7,7 @@ export type JobPost = {
   datePosted: string;
   logo: string;
   tags: string[];
-  remote: boolean;
+  remote: 'true' | 'false';
   salaryRange: string;
   fullTime: boolean;
 };
